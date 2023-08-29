@@ -5,8 +5,8 @@ from django.utils.timezone import localtime
 
 def storage_information_view(request):
     non_closed_visits = []
-    not_leaved = Visit.objects.filter(leaved_at=None)
-    for visit in not_leaved:
+    not_leaved_visits = Visit.objects.filter(leaved_at=None)
+    for visit in not_leaved_visits:
         entered_at_localtime = localtime(visit.entered_at)
         non_closed_visits.append(
             {

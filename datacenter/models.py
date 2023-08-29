@@ -20,6 +20,16 @@ class Visit(models.Model):
     entered_at = models.DateTimeField()
     leaved_at = models.DateTimeField(null=True)
 
+    def __str__(self):
+        return '{user} entered at {entered} {leaved}'.format(
+            user=self.passcard.owner_name,
+            entered=self.entered_at,
+            leaved=(
+                f'leaved at {self.leaved_at}'
+                if self.leaved_at else 'not leaved'
+            )
+        )
+
     def is_visit_long(self, minutes=60):
         if self.leaved_at is not None:
             seconds = minutes * 60
@@ -48,13 +58,3 @@ class Visit(models.Model):
         minutes = (seconds % 3600) // 60
         seconds = (seconds % 60)
         return f'{hours}:{minutes}:{seconds}'
-
-    def __str__(self):
-        return '{user} entered at {entered} {leaved}'.format(
-            user=self.passcard.owner_name,
-            entered=self.entered_at,
-            leaved=(
-                f'leaved at {self.leaved_at}'
-                if self.leaved_at else 'not leaved'
-            )
-        )
