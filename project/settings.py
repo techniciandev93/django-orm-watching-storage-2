@@ -5,11 +5,11 @@ load_dotenv()
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': os.environ['HOST_DB'],
-        'PORT': os.environ['PORT_DB'],
-        'NAME': os.environ['NAME_DB'],
-        'USER': os.environ['USER_DB'],
-        'PASSWORD': os.environ['PASSWORD_DB'],
+        'HOST': os.environ['DATABASE_HOST'],
+        'PORT': os.environ['DATABASE_PORT'],
+        'NAME': os.environ['DATABASE_NAME'],
+        'USER': os.environ['DATABASE_USER'],
+        'PASSWORD': os.environ['DATABASE_PASSWORD'],
     }
 }
 
@@ -21,8 +21,7 @@ DEBUG = os.environ.get('DEBUG_DJANGO', False).lower() == 'true'
 
 ROOT_URLCONF = 'project.urls'
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(' ')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES = [
